@@ -2,6 +2,7 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QFile>
+#include <QPalette>
 #include <QSettings>
 #include <QStyleFactory>
 
@@ -36,8 +37,14 @@ int main(int argc, char *argv[]) {
   if (settings.value("AppsUseLightTheme") == 0)
     set_dark();
 #else
-  // on other platform, it would be dark mode by default. (just for my vision)
-  set_dark();
+  QPalette palette = app.palette();
+  // 检查当前颜色主题是深色还是浅色
+  if (palette.color(QPalette::Window).value() < 128) {
+    set_dark();
+    qDebug() << "dark mode";
+  } else {
+    qDebug() << "light mode";
+  }
 #endif
 
   QHotkey hotkey(QKeySequence("Ctrl+LEFT"), true, &app);

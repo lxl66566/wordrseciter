@@ -1,5 +1,5 @@
 set_project("wordsreciter")
-set_version("2.0.1")
+set_version("2.1.0")
 set_languages("cxx20")
 set_encodings("utf-8")
 if is_plat("windows") then
@@ -15,10 +15,19 @@ target("wordsreciter")
     add_files("src/*.h")
     add_files("src/*.ui")
     add_files("static/static.qrc")
-    add_files("static/icon.rc")
-    add_files("lib/dark/darkstyle.qrc")
-    -- add_packages("cmake::lib/QHotkey")
+    if is_plat("windows") then
+        add_files("static/icon.rc")
+    elseif is_plat("linux") then
+        add_links("X11")
+        add_links("Qt6DBus")
+    end
 
+    -- lib:
+        -- dark
+    add_files("lib/dark/darkstyle.qrc")
+
+        -- QHotkey
+    -- add_packages("cmake::lib/QHotkey")
     add_files("lib/QHotkey/QHotkey/*.h")
     add_files("lib/QHotkey/QHotkey/qhotkey.cpp")
     if is_plat("macosx") then

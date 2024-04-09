@@ -28,6 +28,12 @@
 ![image](https://user-images.githubusercontent.com/88281489/172057400-c0fe2f8b-1fc9-45ce-a820-d94d9a145230.png)
 ![image](https://user-images.githubusercontent.com/88281489/175872616-67539688-8561-476e-89e4-334ec6414b5b.png)
 
+## 安装
+
+1. 在 [Releases](https://github.com/lxl66566/wordsreciter/releases) 中下载对应平台的可执行文件并解压。
+2. 如果你有离线背词需求，下载解压 Releases 中的 `words.zip` 并将 `words` 文件夹放入可执行文件所在目录。
+3. 运行。
+
 ## 使用指南
 
 1. 输入单词，按回车键提交；未输入单词时按回车最小化窗口。

@@ -22,7 +22,7 @@ offline::offline(QWidget *parent) : QWidget(parent), ui(new Ui::offline) {
   buttongroup->addButton(ui->jap1, 10);
   reciter = new wordschooser("english", englishfile);
   for (int i = 0; i <= 9; ++i) {
-    connect(buttongroup->button(i), &QRadioButton::toggled, this, [=]() {
+    connect(buttongroup->button(i), &QRadioButton::toggled, this, [=, this]() {
       flag_choose = true;
       if (!buttongroup->button(i)->isChecked())
         return;
@@ -38,7 +38,7 @@ offline::offline(QWidget *parent) : QWidget(parent), ui(new Ui::offline) {
       flush_text();
     });
   }
-  connect(buttongroup->button(10), &QRadioButton::toggled, this, [=]() {
+  connect(buttongroup->button(10), &QRadioButton::toggled, this, [=, this]() {
     flag_choose = true;
     if (!buttongroup->button(10)->isChecked())
       return;

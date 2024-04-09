@@ -8,7 +8,6 @@
 #include <QJsonObject>
 #include <QKeyEvent>
 
-
 settingswidget::settingswidget(QWidget *parent)
     : QWidget(parent), ui(new Ui::settingswidget) {
   ui->setupUi(this);
@@ -42,12 +41,14 @@ settingswidget::settingswidget(QWidget *parent)
     urlwidget->show();
   });
   for (int i = 0; i <= 1; ++i) {
-    connect(buttongroup->button(i), &QAbstractButton::toggled, this, [=]() {
-      eng_selected = buttongroup->button(0)->isChecked() ? 0 : 1;
-    });
-    connect(buttongroup2->button(i), &QAbstractButton::toggled, this, [=]() {
-      jap_selected = buttongroup2->button(0)->isChecked() ? 0 : 1;
-    });
+    connect(buttongroup->button(i), &QAbstractButton::toggled, this,
+            [=, this]() {
+              eng_selected = buttongroup->button(0)->isChecked() ? 0 : 1;
+            });
+    connect(buttongroup2->button(i), &QAbstractButton::toggled, this,
+            [=, this]() {
+              jap_selected = buttongroup2->button(0)->isChecked() ? 0 : 1;
+            });
   }
   connect(ui->page, SIGNAL(valueChanged(int)), this, SLOT(setpages(int)));
   connect(ui->autosavetime, SIGNAL(valueChanged(int)), this,

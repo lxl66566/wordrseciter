@@ -16,14 +16,15 @@ url_settingswidget::url_settingswidget(QString text[4], QString urls[4],
   ui->engurl2->setText(urls[1]);
   ui->japurl1->setText(urls[2]);
   ui->japurl2->setText(urls[3]);
-  connect(ui->buttonBox, &QDialogButtonBox::accepted, this, [=]() {
+  connect(ui->buttonBox, &QDialogButtonBox::accepted, this, [=, this]() {
     emit ok_url(ui->engurl1->text(), ui->engurl2->text(), ui->japurl1->text(),
                 ui->japurl2->text());
     emit ok_text(ui->engtext1->text(), ui->engtext2->text(),
                  ui->japtext1->text(), ui->japtext2->text());
     close();
   });
-  connect(ui->buttonBox, &QDialogButtonBox::rejected, this, [=]() { close(); });
+  connect(ui->buttonBox, &QDialogButtonBox::rejected, this,
+          [=, this]() { close(); });
 }
 
 url_settingswidget::url_settingswidget(QWidget *parent)

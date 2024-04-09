@@ -52,7 +52,7 @@ offline::offline(QWidget *parent) : QWidget(parent), ui(new Ui::offline) {
     reciter->get_words_set();
     flush_text();
   });
-  connect(ui->next, &QPushButton::clicked, this, [=]() { flush_text(); });
+  connect(ui->next, &QPushButton::clicked, this, [=, this]() { flush_text(); });
 }
 
 offline::~offline() {

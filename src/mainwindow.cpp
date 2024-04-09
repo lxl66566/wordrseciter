@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
            !setting->eng_selected ? setting->urls[0] : setting->urls[1],
            !setting->jap_selected ? setting->urls[2] : setting->urls[3]);
   connect(setting, &settingswidget::ok, this, &MainWindow::settings);
-  connect(ui->actionsettings, &QAction::triggered, this, [=]() {
+  connect(ui->actionsettings, &QAction::triggered, this, [=, this]() {
     ui->elements->hide();
     ui->menubar->hide();
     setting->show();
@@ -45,13 +45,13 @@ MainWindow::MainWindow(QWidget *parent)
   buttongroup->addButton(ui->japanese, 1);
   buttongroup->button(0)->setChecked(true);
   reciter->seturl(url_for_endlish);
-  connect(buttongroup->button(0), &QAbstractButton::clicked, this, [=]() {
+  connect(buttongroup->button(0), &QAbstractButton::clicked, this, [=, this]() {
     language = "english";
     reciter->change_language_with_save(language);
     reciter->seturl(url_for_endlish);
     reciter->clear_last();
   });
-  connect(buttongroup->button(1), &QAbstractButton::clicked, this, [=]() {
+  connect(buttongroup->button(1), &QAbstractButton::clicked, this, [=, this]() {
     language = "japanese";
     reciter->change_language_with_save(language);
     reciter->seturl(url_for_japanese);
@@ -60,7 +60,7 @@ MainWindow::MainWindow(QWidget *parent)
 
   ui->message->setText(reciter->get_error_str());
   connect(ui->submit, &QPushButton::clicked, this, &MainWindow::add_word);
-  connect(ui->undo, &QPushButton::clicked, this, [=]() {
+  connect(ui->undo, &QPushButton::clicked, this, [=, this]() {
     auto temp = reciter->undo();
     if (!temp.isEmpty())
       give_message("撤销成功！");
@@ -69,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->word->insert(temp);
     ui->word->setFocus();
   });
-  connect(ui->del, &QPushButton::clicked, this, [=]() {
+  connect(ui->del, &QPushButton::clicked, this, [=, this]() {
     if (ui->word->text().isEmpty())
       return;
     if (reciter->del_word(ui->word->text()))
@@ -79,8 +79,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->word->clear();
   });
   connect(ui->recite, &QPushButton::clicked, this,
-          [=]() { give_message(reciter->recite(open_pages_num)); });
-  connect(ui->recite_last, &QPushButton::clicked, this, [=]() {
+          [=, this]() { give_message(reciter->recite(open_pages_num)); });
+  connect(ui->recite_last, &QPushButton::clicked, this, [=, this]() {
     QString temp = reciter->get_last();
     if (temp.isEmpty()) {
       give_message("未找到最近一个");
@@ -89,12 +89,12 @@ MainWindow::MainWindow(QWidget *parent)
     reciter->open_a_word(temp);
   });
 
-  connect(ui->actionoffline_mode, &QAction::triggered, this, [=]() {
+  connect(ui->actionoffline_mode, &QAction::triggered, this, [=, this]() {
     offlinewidget = new offline();
     offlinewidget->show();
     offlinewidget->raise();
   });
-  connect(ui->actionread_notebook, &QAction::triggered, this, [=]() {
+  connect(ui->actionread_notebook, &QAction::triggered, this, [=, this]() {
     notebook_widget = new see_notebook_widget();
     notebook_widget->show();
     notebook_widget->raise();
@@ -103,7 +103,7 @@ MainWindow::MainWindow(QWidget *parent)
   timer = new QTimer(this);
   connect(timer, &QTimer::timeout, this, &MainWindow::clear_message);
   timer_save = new QTimer(this);
-  connect(timer_save, &QTimer::timeout, this, [=]() {
+  connect(timer_save, &QTimer::timeout, this, [=, this]() {
     timer_save->start(save_time * 1000);
     give_message(reciter->auto_save());
   });

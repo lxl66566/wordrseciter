@@ -1,4 +1,4 @@
-#include "globalshortcut.h"
+#include "../lib/QHotkey/QHotkey/QHotkey"
 #include "mainwindow.h"
 #include <QApplication>
 #include <QFile>
@@ -24,7 +24,7 @@ void set_dark() {
 }
 
 int main(int argc, char *argv[]) {
-  QApplication a(argc, argv);
+  QApplication app(argc, argv);
   MainWindow w;
   w.show();
 
@@ -40,8 +40,10 @@ int main(int argc, char *argv[]) {
   set_dark();
 #endif
 
-  GlobalShortCut *shortcut = new GlobalShortCut("Ctrl+LEFT", &w);
-  QObject::connect(shortcut, &GlobalShortCut::activated, &w,
+  QHotkey hotkey(QKeySequence("Ctrl+LEFT"), true, &app);
+  qDebug() << "Is segistered:" << hotkey.isRegistered();
+  QObject::connect(&hotkey, &QHotkey::activated, &w,
                    &MainWindow::change_visibility);
-  return a.exec();
+
+  return app.exec();
 }

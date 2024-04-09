@@ -32,7 +32,7 @@ settingswidget::settingswidget(QWidget *parent)
   display();
 
   connect(ui->okbutton, &QPushButton::clicked, this, &settingswidget::OK);
-  connect(ui->diyurl, &QPushButton::clicked, this, [=]() {
+  connect(ui->diyurl, &QPushButton::clicked, this, [=, this]() {
     urlwidget = new url_settingswidget(text, urls, this);
     connect(urlwidget, &url_settingswidget::ok_url, this,
             &settingswidget::seturl);

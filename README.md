@@ -7,7 +7,7 @@
 1. 笔记本与在线背词
    - 支持添加、撤销、删除单词功能
    - 支持随机背诵（在指定网站或自定义网站中打开）
-   - 支持背诵最近 1 个添加的单词
+   - 支持背诵最近添加的单词
    - 支持自定义背词网址
    - 支持深色模式，默认检测主题
 2. 离线背词器
@@ -32,3 +32,14 @@
 1. 输入单词，按回车键提交；未输入单词时按回车最小化窗口。
 2. 最小化后将在屏幕左上角放置一个唤起窗口，单击即可唤醒主窗口，可以拖动。
 3. 使用 `Ctrl+←` 快速唤起/隐藏主窗口。
+
+## 开发
+
+本项目使用 xmake + Qt6 开发。请确保开发环境已正确配置。[need help?](https://absx.pages.dev/coding/Cpp.html#%E5%AE%89%E8%A3%85)
+
+```sh
+git clone --recursive https://github.com/lxl66566/wordsreciter.git
+cd wordsreciter
+xmake f -m release
+xmake
+```
